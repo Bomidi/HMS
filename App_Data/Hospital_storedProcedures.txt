@@ -1,0 +1,146 @@
+Procedure For Doctor Register
+
+
+create procedure sp_hospital_doctorsignup(@name varchar(20),@loginid varchar(20),@password varchar(20),
+@department varchar(20),@specialization varchar(20),@phonenumber varchar(20),@address varchar(20),@email varchar(20))
+as
+begin
+insert into hospital_doctorsignup values(@name,@loginid,@password,@department,@specialization,@phonenumber,@address,@email)
+end
+
+-----------------------------------------------------------------------------------------------------------------------------
+Procedure For Employee Register
+
+
+create procedure sp_hospital_empsignup(@name varchar(20),@loginid varchar(20),@password varchar(20),
+@department varchar(20),@phonenumber varchar(20),@address varchar(20),@email varchar(20))
+as
+begin
+insert into hospital_empsignup values(@name,@loginid,@password,@department,@phonenumber,@address,@email)
+end
+
+------------------------------------------------------------------------------------------------------------------------------
+Procedure For Doctor Forgot Password
+
+CREATE procedure sp_hospital_empforgot(@loginid varchar(20),@password varchar(20) out)    
+as    
+begin    
+select @password=password from hospital_empsignup where loginid=@loginid  
+end  
+
+------------------------------------------------------------------------------------------------------------------------------
+Procedure For Employee Forgot Password
+
+CREATE procedure sp_hospital_doctorforgot(@loginid varchar(20),@password varchar(20) out)    
+as    
+begin    
+select @password=password from hospital_doctorsignup where loginid=@loginid  
+end  
+
+------------------------------------------------------------------------------------------------------------------------------
+Procedure For Patient Information
+
+create procedure sp_hospital_patientinfoenter(@pid int,@patientname varchar(20),@age varchar(20),@department varchar(20),
+@doctor varchar(20))
+as
+begin
+insert into hospital_patientinfo values(@pid,@patientname,@age,@department,@doctor)
+end
+
+--------------------------------------------------------------------------------------------------------------------------------
+Procedure For Inpatient
+
+create procedure sp_hospital_inpatient(@patientname varchar(20),@gender varchar(20),@age int,@address varchar(20),
+@phoneres bigint,@phonemob bigint,@maritual varchar(20),@occupation varchar(20),@admid int,@admdate datetime,@admtime datetime,
+@status varchar(20),@symtoms varchar(20),@department varchar(20),@wardno int,@bedno int,@doctor varchar(20))
+as
+begin
+insert into hospital_inpatient values(@patientname,@gender,@age,@address,@phoneres,@phonemob,@maritual,@occupation,@admid,
+@admdate,@admtime,@status,@symtoms,@department,@wardno,@bedno,@doctor)
+end
+
+----------------------------------------------------------------------------------------------------------------------------------
+Procedure For OutPatient
+
+create procedure sp_hospital_outpatient(@patientname varchar(20) ,@gender varchar(20),@age int,@address varchar(20),
+@assigndoctor varchar(20),@phoneres bigint,@phonemob bigint,@opdate datetime,@department varchar(20))
+as
+begin
+insert into hospital_outpatient values(@patientname,@gender,@age,@address,@assigndoctor,@phoneres,@phonemob,@opdate,@department)
+end
+
+---------------------------------------------------------------------------------------------------------------------------------
+Procedure For Surgery Information
+
+
+create procedure sp_hospital_surgeryinfo(@pid int,@patientname varchar(20),@age varchar(20),@department varchar(20),@doctor varchar(20),
+@surgerydate datetime)  
+as  
+begin  
+insert into hospital_surgeryinfo values(@pid,@patientname,@age,@department,@doctor,@surgerydate)  
+end 
+
+---------------------------------------------------------------------------------------------------------------------------------
+Procedures For Blood Test
+
+create procedure sp_hospital_bloodtest(@patienttype varchar(20),@patientid int,@patientname varchar(20),@mediclatestype varchar(20),
+@bloodgroup varchar(20),@haemoglobin varchar(20),@bloodsugar varchar(20),@sacid varchar(20),@description varchar(40))
+as
+begin
+insert into hospital_bloodtest values(@patienttype,@patientid,@patientname,@mediclatestype,@bloodgroup,@haemoglobin,
+@bloodsugar,@sacid,@description)
+end
+
+-----------------------------------------------------------------------------------------------------------------------------------
+Procedure For Urin Test
+
+create procedure sp_hospital_urintest(@patienttype varchar(20),@patientid int,@patientname varchar(20),@mediclatestype varchar(20),
+@color varchar(20),@clarity varchar(20),@odor varchar(20),@specificgravity varchar(20),@glucose varchar(40),@description varchar(40))
+as
+begin
+insert into hospital_urintest values(@patienttype,@patientid,@patientname,@mediclatestype,@color,@clarity,
+@odor,@specificgravity,@glucose,@description)
+end
+
+-------------------------------------------------------------------------------------------------------------------------------------
+Procedure For Medical Test
+
+
+create procedure sp_hospital_medicaltestout(@pid int)  
+as  
+begin  
+select patientname from hospital_outpatient where patientid=@pid  
+end  
+
+--------------------------------------------------------------------------------------------------------------------------------------
+Procedure For Operation
+
+
+create procedure sp_hospital_operation(@patienttype varchar(20),@patientid int,@patientname varchar(20),@refdoctor varchar(20),
+@operationtype varchar(20),@operatonresult varchar(20))
+as
+begin
+insert into hospital_operation values(@patienttype,@patientid,@patientname,@refdoctor,@operationtype,@operatonresult)
+end
+
+----------------------------------------------------------------------------------------------------------------------------------------
+Procedure For Pharmacy
+
+create procedure sp_hospital_pharmacy(@patienttype varchar(20),@patientid int,@department varchar(20),@patientname varchar(20),
+@medicine varchar(20))
+as
+begin
+insert into hospital_pharmacy values(@patienttype,@patientid,@department,@patientname,@medicine)
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Procedure For Discharge Summary
+
+create procedure sp_hospital_dischargesummary(@patientid int,@patientname varchar(20),
+@joindate datetime,@dischargedate datetime)
+as
+begin
+insert into hospital_dischargesummary values(@patientid,@patientname,@joindate,@dischargedate)
+end
+
+-------------------------------------------------------------------------------------------------------------------------------------------
